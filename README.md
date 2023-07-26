@@ -1,1 +1,1 @@
-# Programmers
+# Algorithm_study
