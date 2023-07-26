@@ -1,0 +1,14 @@
+//구구단을 출력하되, 짝수단(2단, 4단, 6단, 8단)만 출력하는 프로그램을 작성하라. 단, continue문을 사용하여 작성할 것.
+
+#include<stdio.h>
+
+int main(void) {
+    for (int i = 2; i < 10; i++ ) {
+        for (int a = 1; a < 10; a++) {
+            if (i % 2 ==1) {
+                continue;
+            }
+            printf("%d x %d = %d\n",i,a,i*a);
+        }
+    }
+}
