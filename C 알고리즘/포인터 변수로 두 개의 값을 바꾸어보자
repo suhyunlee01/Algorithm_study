@@ -1,0 +1,22 @@
+//참조에 의한 호출 방식에 의거해서 함수를 호출하되, 두 개의 값을 바꾸는 함수인 Swap() 함수를 작성한다.
+//main() 함수에서 Swap 함수 호출 전 값을 출력하고, 함수 안에서 변경 후 값을 출력하고, 마지막으로 함수 밖에서 값을 출력하도록 한다.
+
+
+#include <stdio.h>
+int swap(int*pA, int*pB) {
+    int swapnum = 0;
+    swapnum = *pA;
+    *pA = *pB;
+    *pB = swapnum;
+    printf("함수 내에서 a와 b의 값: %d, %d\n", *pA, *pB); 
+    return 0;
+}
+int main()
+{
+    int a = 10;
+    int b = 20;
+    printf("swap 전의 a와 b의 값: %d, %d\n", a, b);
+
+    swap(&a, &b);  // swap(a, b)같이 값을 복사하는 형태인 값에 의한 호출은 결국 int a b는 그대로 값을 갖고 있기 때문에 두 개의 값을 바꾸는 결과를 얻을 수 없고, 주소 안의 값을 핸들링할 수 있는 참조형으로 호출해야 서로 swap되어 바뀐 값을 받아볼 수 있게 될 것임.
+    printf("swap 후의 a와 b의 값: %d, %d\n", a, b);
+}
