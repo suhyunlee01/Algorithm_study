@@ -1,0 +1,50 @@
+/*
+서울시에서 근무하는 전산팀의 로케트 박대리는 이번 공무원 공채 시험 합격자 명단 발표 건으로 고민중이다. 이번 공무원 공채 시험 합격자가 1만명이다. 그래서 [합격자 조회]라는 메뉴를 추가하여 수험자가 수험번호를 입력하면 합격 여부를 알 수 있게 시스템의 기능을 추가하려고 한다.
+
+프로젝트를 생성하여 [합격자 조회] 기능 수행 시 동작하는 검색 알고리즘을 작성하라.
+(프로젝트 명은 Java로 작성하는 경우 Ex1Java로, C로 작성하는 경우 Ex1C로, C++로 작성하는 경우에는 Ex1Cpp로 작성하라.)
+(단, 모든 데이터는 오름차순으로 정렬되어 있다.)
+
+예를 들어 19개의 정수들이 배열 형태로 크기순으로 잘 나열되어 있다고 하자. 이 배열에서 키를 찾는데, 29라는 키 값을 찾는다고 하면 다음과 같은 번호 순서대로 검색을 해야 한다.
+*/
+
+#include<stdio.h>
+int find(int* arr, int key, int index, int size) {
+
+    int MiddleLocation = 0;
+    int LowerLocation = 0;
+    int UpperLocation = size -1 ;
+    while (true) {
+
+        int MiddleLocation = (LowerLocation + UpperLocation) / 2;
+        
+        if (arr[MiddleLocation] == key) {
+            return MiddleLocation;
+        }
+        if (arr[MiddleLocation] > key) {
+            UpperLocation = MiddleLocation - 1; //key보다 큰 경우 미들이었던 것보다 하나 작은 인덱스를 UPPER로 만듦
+        }
+        else if (arr[MiddleLocation] < key) {
+            LowerLocation = MiddleLocation + 1; //key보다 작은 경우 미들이었던 것보다 하나 큰 인덱스를 UPPER로 만듦
+        }
+        if (UpperLocation <= LowerLocation) { //찾는 key가 없어서 서로 스쳐지나가는 바람에 UPPEr와 LOWER가 같아지거나 커질 수 있는데, 이런 경우 -1을 리턴한다.
+            return -1;
+        }
+    }
+}
+
+int main(void) {
+    int arr[] = { 2,6,13,19,21,21,23,29,35,48,62,89,90,95,99,102,109,208,629 };
+    int size = sizeof(arr) / sizeof(arr[0]);
+    int key = 29;
+    int index = -1;
+
+    index = find(arr, key, index, size); //즉, 현재 인덱스는 find 함수로부터 리턴받은 값을 의미한다.
+
+    if (index == -1) { //인덱스가 초기값이라면 find함수로부터 아무것도 찾지 못해 -1을 리턴받았다는 의미이다.
+        printf("NOPE");
+    }
+    else { // 만약 index가 초기값 -1이 아닌 어떤 수라도 들어가 있으면 MiddleLocation, 즉 key값이 존재해서 출력되었다는 의미이다.
+        printf("YES");
+    }
+}
