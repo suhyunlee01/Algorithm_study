@@ -1,0 +1,58 @@
+#include<stdio.h>
+#include<string.h>
+
+#define BK 10 //버킷과 슬롯의 값이 변경되어도 상관 없도록 이 방법 선택
+#define SL 5
+
+//[][]는 기존의 1차원 배열이 아니라 2차원 배열을 만든다. 가로줄과 세로줄을 만드는 것이다.
+
+int hashtable[BK][SL]; //2차원 배열로 메모리 만듦 //int hashtable[1]은 하나 만큼의 사이즈를 제공하라는 의미이므로 hashtable의 인덱스는 array[0] 하나만 있는 것임.
+
+int hash(int key) { //버킷으로 사용할 수를 리턴한다.
+	return key % 10; //key 값의 1의 자리 수만을 리턴받는다. 따라서 이 1의 자리 수들을 10개의 hashtable속 버킷으로 사용하기로 결정한다.(다른 좋은 방법이 있다면 그것을 선택해도 좋다.)
+}
+
+void AddKey(int key) {
+	int bucket = hash(key);
+
+	for (int i = 0; i < SL; i++) {
+
+		if (hashtable[bucket][i] == 0) {
+			hashtable[bucket][i] = key;
+			break; // 슬롯의 크기만큼 반복하다가 그 안에 값이 비어있으면 key값을 넣고 함수를 종료하기
+		}
+	}
+}
+bool FindKey(int key) {
+	int bucket = hash(key); //검색할 값인 key의 버킷을 가져온다.
+
+	for (int i = 0; i < SL; i++) {
+		if (hashtable[bucket][i] == key) {//슬롯만큼 반복하면서 해당 버킷의 인덱스와 key값을 비교하기
+			return true;
+		}
+	}return false; //만약 key 값을 찾았다면 true를 못찾으면 false를 리턴함
+}
+void main() {
+	
+	memset(hashtable, 0, sizeof(hashtable)); // hashtable을 모두 0으로 hashtable만큼 채워라 = 0으로 초기화함
+
+	int key = 0;
+
+	for (int i = 0; i < 5; i++) {
+		printf("값을 입력해주세요.");
+		scanf_s("%d", &key);
+		AddKey(key);
+	}
+
+
+	printf("검색할 값을 입력하세요.");
+	scanf_s("%d", &key);
+
+	if (FindKey(key)) {
+		printf("값이 있습니다");
+	}
+	else {
+		printf("없음");
+	}
+
+	}
