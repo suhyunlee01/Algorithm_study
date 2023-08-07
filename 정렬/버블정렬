@@ -1,0 +1,28 @@
+#include<stdio.h>
+#include<string.h>
+
+void swap(char*arr1, char*arr2) {
+	char temp;
+	temp = *arr1;
+	*arr1 = *arr2;
+	*arr2 = temp;
+}
+
+void func(int len, char* str) {
+	int temp;
+	for (int i = 0; i < len - 1; i++) {
+		for (int j = 1; j < len - 1; j++) {
+			if (str[j - 1] > str[j]) {   //두 수를 swap함.
+				swap(&str[j - 1], &str[j]); //어레이의 첫번째 주소값이 아닌 다른 값의 주솟값으 보내고 싶다면 &를 사용
+			}
+		}
+	}
+}
+
+void main() {
+	char str[] = "winapi";
+	int len = strlen(str); //문자열의 길이를 구해주는 함수이다. 이것을 쓰기 위해 #include<string.h>
+	printf("정렬 전의 문자열: %s\n", str);
+	func(len, str);
+	printf("정렬 후의 문자열: %s\n", str);
+}
