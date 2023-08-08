@@ -1,0 +1,20 @@
+var array = [23,47,19,63,57,26,75,73,82,89,47,11];
+var temp;
+
+
+for(i = 0; i < array.length-1; i++){ //제일 작은 수의 인덱스를 i라는 변수로 가정해서 선언
+    var min = i;
+    for(j = i + 1; j < array.length; j++){ //j인덱스와 min인덱스(i)를 비교해나가기
+        if(array[min]>array[j]){ //만약 min인덱스의 값이 j인덱스의 값보다 커지면 그때는 제일 작은 수가 j인덱스의 값이 되므로 min = j로 초기화한다.
+            min = j;
+        }
+    }
+
+    if(min !== i){
+        temp = array[min];
+        array[min] = array[i];
+        array[i] = temp;
+    }
+}
+
+document.write(array);
