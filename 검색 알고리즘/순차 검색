@@ -45,3 +45,21 @@ void main() {
 		printf("찾는 값은 %d번째에 있어요.", index + 1);
 	}
 }
+
+//JS로도 작성해보기
+
+var array = [23,47,19,63,57,26,75,73,82,89,47,11];
+var key = 75;
+var index = 1;
+
+for(var i = 0; i<array.length; i++){
+    if(array[i]==key){
+        index = i;
+    }
+}
+
+if(index == -1){
+    document.write("찾는 값이 없습니다.");
+}else{
+    document.write("찾는 값이" + (index+1) + "번째에 있습니다.");
+}
