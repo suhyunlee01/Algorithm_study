@@ -48,3 +48,31 @@ int main(void) {
         printf("YES");
     }
 }
+
+//JS로도 작성해보기
+
+var array = [2,6,13,19,21,21,23,29,35,48,62,89,90,95,99,102,109,208,629];
+var key = Number(prompt("입력"));
+var upper = array.length-1;
+var lower = 0;
+function func(){
+    while(upper>=lower){
+    var middle = Math.floor((lower+upper)/2);
+    if(array[middle]==key){
+        return true;
+    }
+    if(array[middle]<key){
+        lower=middle+1;
+    }else if(array[middle]>key){
+        upper=middle-1;
+    }
+    if(upper<lower){
+        return false;
+    }
+}  
+}
+if(func()){
+    document.write("합격입니다.");
+}else{
+    document.write("불합격입니다.");
+}
