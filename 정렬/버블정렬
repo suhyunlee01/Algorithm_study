@@ -26,3 +26,27 @@ void main() {
 	func(len, str);
 	printf("정렬 후의 문자열: %s\n", str);
 }
+
+
+//자바스크립트로도 작성해보기
+
+var children = [];
+var height;
+var temp;
+
+for(var i = 0; i < 6; i++){
+    var height = Number(prompt("아이들의 키를 입력해주세요"));
+    children.push(height);
+}
+
+for(var j = 0; j < 6; j++){
+    for(var a = 0; a < 6; a++){
+        if(children[a-1]>children[a]){
+            temp=children[a-1];
+            children[a-1]=children[a];
+            children[a]=temp;
+        }
+    }
+}
+
+document.write(children);
