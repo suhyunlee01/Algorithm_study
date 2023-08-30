@@ -1,0 +1,37 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace 싱글톤패턴코드
+{
+    public class SingletonClass
+    {
+        private static SingletonClass instance;
+        private SingletonClass() { } //생성자 프라이빗하게
+
+        public static SingletonClass getInstance()//인스턴스 생성하는 함수
+        {
+            if (instance == null)
+            {
+                instance = new SingletonClass();
+            }
+            return instance;
+        }
+        public void ShowMessage()
+        {
+            Console.WriteLine("싱글톤 패턴");
+        }
+    }
+    
+    internal class Program
+    {
+
+        static void Main(string[] args)
+        {
+            SingletonClass.getInstance(); //인스턴스 생성
+            SingletonClass.getInstance().ShowMessage();
+        }
+    }
+}
