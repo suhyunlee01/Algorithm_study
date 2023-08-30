@@ -1,0 +1,63 @@
+#include <iostream>
+
+using namespace std;
+
+class SingletonClass {
+private:
+	static SingletonClass* instance;
+
+	int total;
+	SingletonClass() {
+		total = 0;
+	}
+	~SingletonClass() {}
+
+public:
+	static SingletonClass* getInstance() {
+		if (instance == NULL) { //인스턴스를 만들지 않았으면
+			instance = new SingletonClass(); //인스턴스를 만들고나서 리턴하라 //4바이트 차지.
+		}
+		return instance; //만약 만들어져있으면 NULL이 아니기 때문에, 그냥 인스턴스만 리턴하면 됨.
+	}
+
+	void ShowMessage() {
+		cout << "싱글톤 패턴" << endl;
+	}
+	void addValue(int value){
+		total = total + value;
+	}
+	int getTotalValue(){
+		return total;
+	}
+	void destroy() { //원래는 소멸자에 있어야 하지만 싱글톤패턴이기 때문에 따로 함수를 생성해서 호출함
+		if (instance != NULL) { //NULL이 아니면, new연산자를 써서 힙메모리에 생성이 되어있다면
+			delete instance;
+			instance = NULL;
+			cout << "인스턴스 해제" << endl;
+		}
+	}
+};
+SingletonClass *SingletonClass::instance = NULL;
+
+void main() {
+	//ins1~3 세개 객체 다ㅏ 같은 인스턴스를 가리킴. getInstance()함수에서 instance 리턴받은 거 계속 쓰고 있는 거임.
+	
+	//처음 호출할 때는 NULL이기 때문에 인스턴스 생성 //4바이트
+	SingletonClass* ins1 = SingletonClass::getInstance();
+
+	//이후로는 NULL이 아니라서 이미 만들어져 있는 인스턴스를 리턴받기만함.
+	SingletonClass* ins2 = SingletonClass::getInstance();
+	SingletonClass* ins3 = SingletonClass::getInstance();
+
+	ins1->addValue(10);
+	cout << "total: " << ins1->getTotalValue() << endl;
+	ins2->addValue(10);
+	cout << "total: " << ins2->getTotalValue() << endl;
+	ins3->addValue(10);
+	cout << "total: " << ins3->getTotalValue() << endl;
+	//따라서 계속 같은 인스턴스에 토탈을 누적해서 total은 30이 됨
+
+	SingletonClass::getInstance()->destroy(); //메모리 누수 방지를 위해 인스턴스 해제
+	//SingletonClass::getInstance()와 "ins1 ins2 ins3" 모두 같은 인스턴스를 가리키기 때문에 아무거나로 대체해도 같은 결과 일어남.
+
+}
